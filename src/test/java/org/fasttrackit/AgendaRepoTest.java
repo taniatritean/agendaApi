@@ -2,9 +2,7 @@ package org.fasttrackit;
 
 import org.fasttrackit.model.Agenda;
 import org.fasttrackit.model.Contact;
-import org.fasttrackit.model.Sectie;
 import org.fasttrackit.repo.AgendaRepository;
-import org.fasttrackit.repo.SectieRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ import java.util.List;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = FacultateApplication.class,
+@ContextConfiguration(classes = AgendaApplication.class,
         loader = SpringApplicationContextLoader.class,
         initializers = ConfigFileApplicationContextInitializer.class)
 

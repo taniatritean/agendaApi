@@ -1,8 +1,6 @@
 package org.fasttrackit.web;
 
 import org.fasttrackit.dto.AgendaDTO;
-import org.fasttrackit.model.Sectie;
-import org.fasttrackit.repo.SectieRepository;
 import org.fasttrackit.service.AgendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +17,7 @@ public class AgendaController {
     private AgendaService service;
 
     @RequestMapping(path = "/agenda", method = RequestMethod.POST)
-    public void saveSectie(@RequestBody Sectie sectie) {
+    public void saveSectie(@RequestBody AgendaDTO agenda) {
 
         //service.save(sectie);
 
