@@ -11,6 +11,7 @@ import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,17 +33,52 @@ public class AgendaRepoTest {
     @Test
     public void testSave() {
 
-        Agenda agenda = new Agenda();
-        agenda.setName("My agenda");
-        List<Contact> contacte = new ArrayList<>();
-        Contact c = new Contact();
-        c.setFirstName("firtsname");
-        c.setLastName("ln");
-        c.setPhone("00000000000");
-        contacte.add(c);
-        agenda.setContacte(contacte);
+        Agenda agenda = getAgenda("agenda0","firtsname", "ln","0000");
         repository.save(agenda);
 
+
+        Agenda agenda2 = getAgenda("agenda1","Ala", "bala","11111");
+        repository.save(agenda2);
+
+
+
+
+    }
+
+    @Test
+    public void testFindByName() {
+
+        List<Agenda> agenda1List = repository.findAgendaByName("agenda1");
+        System.out.println(agenda1List.size());
+
+        System.out.println("-----------------------REZULTAT TEST");
+        System.out.println(agenda1List.get(0));
+
+
+        List<Agenda> agendaLikeList = repository.findAgendaWhereNameLike("agenda");
+        System.out.println(agendaLikeList.size());
+
+        System.out.println("-----------------------REZULTAT TEST LIKE");
+
+        for(Agenda agenda : agendaLikeList) {
+            System.out.println(agenda);
+        }
+
+    }
+
+
+
+    private Agenda getAgenda(String agendaName, String firtsname, String ln, String phone) {
+        Agenda agenda = new Agenda();
+        agenda.setName(agendaName);
+        List<Contact> contacte = new ArrayList<>();
+        Contact c = new Contact();
+        c.setFirstName(firtsname);
+        c.setLastName(ln);
+        c.setPhone(phone);
+        contacte.add(c);
+        agenda.setContacte(contacte);
+        return agenda;
     }
 
 }
