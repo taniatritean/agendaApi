@@ -37,4 +37,14 @@ public class AgendaDTO {
     public void setContacte(List<ContactDTO> contacte) {
         this.contacte = contacte;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("AgendaDTO{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", contacte=").append(contacte);
+        sb.append('}');
+        return sb.toString();
+    }
 }

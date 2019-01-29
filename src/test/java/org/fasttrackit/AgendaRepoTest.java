@@ -3,6 +3,7 @@ package org.fasttrackit;
 import org.fasttrackit.model.Agenda;
 import org.fasttrackit.model.Contact;
 import org.fasttrackit.repo.AgendaRepository;
+import org.fasttrackit.service.AgendaService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class AgendaRepoTest {
     @Autowired
     private AgendaRepository repository;
 
+    @Autowired
+    private AgendaService service;
+
     @Test
     public void testSave() {
 
@@ -40,6 +44,16 @@ public class AgendaRepoTest {
         Agenda agenda2 = getAgenda("agenda1","Ala", "bala","11111");
         repository.save(agenda2);
 
+
+
+
+    }
+
+
+    @Test
+    public void testGetAll() {
+
+        System.out.println(service.getAllAgendas());
 
 
 

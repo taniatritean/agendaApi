@@ -7,8 +7,10 @@ import org.fasttrackit.model.Contact;
 import org.fasttrackit.repo.AgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,33 +24,26 @@ public class AgendaService {
     @Autowired
     private AgendaRepository agendaRepository;
 
-    public AgendaDTO getAgenda(long id) {
-
-        Agenda one = agendaRepository.findOne(id);
-        AgendaDTO dto = convertToDto(one);
-        return dto;
-    }
-
-    private AgendaDTO convertToDto(Agenda one) {
-        AgendaDTO dto = new AgendaDTO();
-        dto.setId(one.getId());
-        dto.setName(one.getName());
-        List<ContactDTO> contacteDto = new ArrayList<>();
-        for (Contact c : one.getContacte()) {
-            ContactDTO cd = convertToDto(c);
-            contacteDto.add(cd);
+    @Transactional
+    public List<AgendaDTO> getAllAgendas() {
+        List<AgendaDTO> result = new ArrayList<>();
+        Iterator<Agenda> iterator = agendaRepository.findAll().iterator();
+        while (iterator.hasNext()) {
+            Agenda next = iterator.next();
+            result.add(ConvertorUtils.convertToDto(next));
         }
+        return result;
+    }
 
-        dto.setContacte(contacteDto);
+    @Transactional
+    public AgendaDTO getAgenda(long id) {
+        Agenda one = agendaRepository.findOne(id);
+        if (one == null) {
+            throw new IllegalArgumentException("Invalid id");
+        }
+        AgendaDTO dto = ConvertorUtils.convertToDto(one);
         return dto;
     }
 
-    private ContactDTO convertToDto(Contact c) {
-        ContactDTO cd = new ContactDTO();
-        cd.setFirstName(c.getFirstName());
-        cd.setLastName(c.getLastName());
-        cd.setPhone(c.getPhone());
-        cd.setId(c.getId());
-        return cd;
-    }
+
 }
