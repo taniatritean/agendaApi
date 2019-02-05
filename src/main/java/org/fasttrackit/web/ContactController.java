@@ -42,6 +42,15 @@ public class ContactController {
         return request;
     }
 
+
+    @CrossOrigin
+    @RequestMapping(path = "/agenda/{agendaId}/contact/{contactId}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void editContact(@PathVariable long agendaId, @PathVariable long contactId
+                                  ) {
+        contactService.delete(contactId);
+    }
+
     @RequestMapping(path = "/agenda/{agendaId}/contact", method = RequestMethod.POST)
     @ResponseBody
     public ContactDTO saveContact(@PathVariable long agendaId,

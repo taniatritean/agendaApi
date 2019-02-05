@@ -24,6 +24,10 @@ public class AgendaService {
     @Autowired
     private AgendaRepository agendaRepository;
 
+    public void setAgendaRepository(AgendaRepository agendaRepository) {
+        this.agendaRepository = agendaRepository;
+    }
+
     @Transactional
     public List<AgendaDTO> getAllAgendas() {
         List<AgendaDTO> result = new ArrayList<>();
@@ -46,4 +50,9 @@ public class AgendaService {
     }
 
 
+    public Agenda save(Agenda agenda) {
+
+        agendaRepository.save(agenda);
+        return agenda;
+    }
 }

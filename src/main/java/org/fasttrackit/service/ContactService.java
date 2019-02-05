@@ -46,11 +46,15 @@ public class ContactService {
 
         Contact one = new Contact();
         one.setPhone(contact.getPhone());
-        one.setLastName(contact.getPhone());
+        one.setLastName(contact.getLastName());
         one.setFirstName(contact.getFirstName());
 
         Agenda agenda = agendaRepository.findOne(agendaId);
         agenda.getContacte().add(one);
         agendaRepository.save(agenda);
+    }
+
+    public void delete(long contactId) {
+        contactRepository.delete(contactId);
     }
 }
